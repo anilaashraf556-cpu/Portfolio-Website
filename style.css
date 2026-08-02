@@ -5,6 +5,7 @@
   --bg: #0b1120;
   --surface: #131b2e;
   --surface-2: #1a2338;
+  --chrome: #1c2848;
   --border: #2a3654;
   --text: #e4e9f5;
   --text-muted: #7c8aa5;
@@ -56,9 +57,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  background: var(--surface);
+  background: var(--chrome);
   border-bottom: 1px solid var(--border);
   padding: 1rem 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
 }
 
 .navbar-logo {
@@ -409,7 +411,8 @@ main {
    FOOTER (shared)
    ========================================================= */
 .site-footer {
-  border-top: 1px solid var(--border);
+  background: var(--chrome);
+  border-top: 2px solid var(--accent);
   padding: var(--space-lg) var(--space-md);
   text-align: center;
 }
