@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anila Ashraf — Frontend AI Engineering Intern</title>
+  <meta name="description" content="Portfolio of Anila Ashraf, Frontend AI Engineering Intern at FlyRank. HTML, CSS, JavaScript and AI-assisted development.">
+
+  <!-- Google Fonts: JetBrains Mono for the "code" feel, Inter for easy reading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== TOP NAV: styled like code editor tabs ===== -->
+  <nav class="tabbar" id="tabbar">
+    <div class="tabbar-dots" aria-hidden="true">
+      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+    </div>
+    <button class="tab active" data-target="hero">index.html</button>
+    <button class="tab" data-target="about">about.js</button>
+    <button class="tab" data-target="skills">skills.json</button>
+    <button class="tab" data-target="projects">projects</button>
+    <button class="tab" data-target="contact">contact.md</button>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero" class="hero">
+      <div class="editor-card">
+        <div class="editor-card-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="filename">developer.js</span>
+        </div>
+        <pre class="code-block"><code><span class="ln">1</span><span class="kw">const</span> <span class="var">developer</span> = {
+<span class="ln">2</span>  <span class="prop">name</span>: <span class="str">"Anila Ashraf"</span>,
+<span class="ln">3</span>  <span class="prop">role</span>: <span class="str">"Frontend AI Engineering Intern @ FlyRank"</span>,
+<span class="ln">4</span>  <span class="prop">builds</span>: <span class="str">"responsive interfaces with AI-assisted development"</span>,
+<span class="ln">5</span>  <span class="prop">status</span>: <span class="str">"open to learning from real-world problems"</span>,
+<span class="ln">6</span>};</code></pre>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section">
+      <h2 class="section-title"><span class="tag">01</span> about.js</h2>
+      <div class="about-content">
+        <p class="about-text">
+          I'm a Computer Science student at Government College Women University Faisalabad
+          with a strong interest in frontend development. I enjoy creating responsive and
+          user-friendly interfaces, and I like using AI tools such as Claude and ChatGPT to
+          improve my coding workflow and solve development challenges more efficiently.
+        </p>
+        <p class="about-text">
+          I'm currently completing a <strong>Frontend AI Engineering internship at FlyRank</strong>,
+          where I'm learning AI-assisted development through real frontend tasks. My goal is to
+          grow into a Frontend AI Engineer role where I can build modern web applications,
+          continue learning from real-world projects, and contribute to creating better user experiences.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="section">
+      <h2 class="section-title"><span class="tag">02</span> skills.json</h2>
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <h3>Languages &amp; Core</h3>
+          <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <h3>Tools &amp; Workflow</h3>
+          <ul>
+            <li>Git</li>
+            <li>GitHub</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <h3>AI-Assisted Development</h3>
+          <ul>
+            <li>Claude</li>
+            <li>ChatGPT</li>
+          </ul>
+        </div>
+
+        <div class="skill-card learning">
+          <h3>Currently Learning</h3>
+          <ul>
+            <li>React</li>
+            <li>Node.js</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="section">
+      <h2 class="section-title"><span class="tag">03</span> projects/</h2>
+      <div class="projects-grid">
+
+        <article class="project-card">
+          <div class="project-card-header">
+            <span class="project-name">chunkiiiz-restaurant.html</span>
+          </div>
+          <h3>Chunkiiiz Restaurant Website</h3>
+          <p>
+            A 6-page restaurant website (Home, About, Menu, Order, Deals, Contact)
+            featuring a JavaScript-powered welcome popup with <code>localStorage</code>
+            persistence, and an order form built with PHP for backend order handling.
+          </p>
+          <p class="project-note">Note: PHP order processing requires a local server environment to run.</p>
+          <div class="project-tags">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span>
+          </div>
+          <a href="https://github.com/anilaashraf556-cpu/Websites" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-header">
+            <span class="project-name">task-manager.js</span>
+          </div>
+          <h3>Task Manager (To-Do App)</h3>
+          <p>
+            A feature-rich to-do app with task filtering (All / Pending / Completed),
+            live search, priority levels, due dates, and automatic urgent-task
+            highlighting for tasks due within a day. Includes dark mode and persistent
+            storage using <code>localStorage</code>.
+          </p>
+          <div class="project-tags">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+          </div>
+          <a href="https://github.com/anilaashraf556-cpu/To-do-app" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-header">
+            <span class="project-name">blood-bank-system</span>
+          </div>
+          <h3>Smart Blood Bank Management System</h3>
+          <p>
+            A collaborative web application designed to manage blood bank operations,
+            built as a team project with a partner through shared discussion and
+            hands-on collaboration.
+          </p>
+          <div class="project-tags">
+            <span>Team Project</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section">
+      <h2 class="section-title"><span class="tag">04</span> contact.md</h2>
+      <div class="contact-card">
+        <p>I'm open to learning opportunities and frontend AI engineering roles. Let's connect:</p>
+        <div class="contact-links">
+          <a href="mailto:anilaashraf556@gmail.com" class="contact-link">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">anilaashraf556@gmail.com</span>
+          </a>
+          <a href="http://github.com/anilaashraf556-cpu" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">github.com/anilaashraf556-cpu</span>
+          </a>
+          <a href="https://www.linkedin.com/in/anila-ashraf-aaa92037b" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">linkedin.com/in/anila-ashraf</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Anila Ashraf. Built with HTML, CSS, JavaScript — and a little AI help.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
