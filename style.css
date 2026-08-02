@@ -1,16 +1,30 @@
 /* =========================================================
    DESIGN TOKENS
+   Two color families:
+   1) Light tokens  -> used for the page body, cards, text
+   2) Chrome tokens -> used ONLY for navbar, footer, and the
+      dark "code editor" hero card (deliberately dark for contrast)
    ========================================================= */
 :root {
-  --bg: #0b1120;
-  --surface: #131b2e;
-  --surface-2: #1a2338;
-  --chrome: #1c2848;
-  --border: #2a3654;
-  --text: #e4e9f5;
-  --text-muted: #7c8aa5;
-  --accent: #5eead4;
-  --accent-2: #f0b429;
+  /* ---- Light theme (main page) ---- */
+  --bg: #bed4f7;          
+  --surface: #ffffff;     /* card background */
+  --surface-2: #eef2f8;   /* light gray hover / input background */
+  --border: #dee4ef;      /* light borders */
+  --text: #17213b;        /* dark navy text */
+  --text-muted: #5b6982;  /* muted gray-navy text */
+  --accent: #0f766e;      /* dark teal — readable on light backgrounds */
+  --accent-2: #b45309;    /* dark amber — readable on light backgrounds */
+  --danger: #dc2626;
+
+  /* ---- Chrome theme (navbar, footer, hero code card) ---- */
+  --chrome: #10182c;          /* dark navy background */
+  --chrome-2: #1c2540;        /* lighter navy — hover/active states */
+  --chrome-border: #2a3654;
+  --chrome-text: #f8f8f8;         /* near-white text on dark chrome */
+  --chrome-text-muted: #94a2c4;   /* muted light text on dark chrome */
+  --chrome-accent: #2dd4bf;       /* bright teal — pops on dark chrome */
+  --chrome-accent-2: #fbbf24;     /* bright amber — pops on dark chrome */
 
   --font-mono: 'JetBrains Mono', monospace;
   --font-body: 'Inter', sans-serif;
@@ -46,7 +60,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* =========================================================
-   NAVBAR (shared across all pages)
+   NAVBAR (dark chrome — sits on top of the light page)
    ========================================================= */
 .navbar {
   position: sticky;
@@ -58,15 +72,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-wrap: wrap;
   gap: 1rem;
   background: var(--chrome);
-  border-bottom: 1px solid var(--border);
   padding: 1rem 1.5rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
 }
 
 .navbar-logo {
   font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--accent);
+  color: var(--chrome-accent);
 }
 
 .navbar-links {
@@ -78,21 +91,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .navbar-links a {
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: var(--chrome-text-muted);
   padding: 0.5rem 0.9rem;
   border-radius: 6px;
   transition: color 0.15s ease, background 0.15s ease;
 }
 
 .navbar-links a:hover {
-  color: var(--text);
-  background: var(--surface-2);
+  color: var(--chrome-text);
+  background: var(--chrome-2);
 }
 
 .navbar-links a.active {
-  color: var(--accent);
-  background: var(--bg);
-  border: 1px solid var(--border);
+  color: var(--chrome-accent);
+  background: var(--chrome-2);
 }
 
 /* =========================================================
@@ -113,7 +125,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .btn-primary {
   background: var(--accent);
-  color: var(--bg);
+  color: #ffffff;
   border-color: var(--accent);
   font-weight: 600;
 }
@@ -189,6 +201,7 @@ main {
   font-size: 0.85rem;
   text-align: center;
   flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(16, 24, 44, 0.08);
 }
 
 .section-heading {
@@ -209,16 +222,20 @@ main {
 
 .project-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-md);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(16, 24, 44, 0.08);
+}
 
 .project-picture-placeholder {
   width: 100%;
@@ -268,8 +285,8 @@ main {
 /* Real uploaded images override the dashed "placeholder" look */
 .profile-picture {
   border: 1px solid var(--border);
-  object-fit: cover;   /* fills the box without stretching the photo */
-  object-position: top; /* keeps faces in frame if the photo gets cropped */
+  object-fit: cover;
+  object-position: top;
 }
 
 .project-picture {
@@ -395,7 +412,7 @@ main {
 }
 
 .form-error {
-  color: #ff6b6b;
+  color: var(--danger);
   font-size: 0.8rem;
   min-height: 1rem;
 }
@@ -408,11 +425,63 @@ main {
 }
 
 /* =========================================================
-   FOOTER (shared)
+   HERO "CODE EDITOR" CARD (signature element — stays dark
+   on purpose, like a real code editor window, even though
+   the rest of the page is light)
+   ========================================================= */
+.editor-card {
+  width: 100%;
+  max-width: 720px;
+  background: var(--chrome);
+  border: 1px solid var(--chrome-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(16, 24, 44, 0.18);
+}
+
+.editor-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.75rem 1rem;
+  background: var(--chrome-2);
+  border-bottom: 1px solid var(--chrome-border);
+}
+
+.filename {
+  margin-left: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--chrome-text-muted);
+}
+
+.code-block {
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 2vw, 1.05rem);
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--chrome-text);
+}
+
+.ln {
+  display: inline-block;
+  width: 1.5rem;
+  color: var(--chrome-text-muted);
+  user-select: none;
+}
+
+.kw { color: #c792ea; }
+.var { color: var(--chrome-accent); }
+.prop { color: #82aaff; }
+.str { color: var(--chrome-accent-2); }
+
+/* =========================================================
+   FOOTER (dark chrome — matches navbar)
    ========================================================= */
 .site-footer {
   background: var(--chrome);
-  border-top: 2px solid var(--accent);
+  border-top: 2px solid var(--chrome-accent);
   padding: var(--space-lg) var(--space-md);
   text-align: center;
 }
@@ -427,11 +496,11 @@ main {
   font-size: 0.8rem;
 }
 
-.footer-links a { color: var(--text-muted); }
-.footer-links a:hover { color: var(--accent); }
+.footer-links a { color: var(--chrome-text-muted); }
+.footer-links a:hover { color: var(--chrome-accent); }
 
 .footer-meta {
-  color: var(--text-muted);
+  color: var(--chrome-text-muted);
   font-size: 0.8rem;
 }
 
