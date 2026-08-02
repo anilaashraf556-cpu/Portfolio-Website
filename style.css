@@ -263,6 +263,19 @@ main {
 }
 .project-link:hover { text-decoration: underline; }
 
+/* Real uploaded images override the dashed "placeholder" look */
+.profile-picture {
+  border: 1px solid var(--border);
+  object-fit: cover;   /* fills the box without stretching the photo */
+  object-position: top; /* keeps faces in frame if the photo gets cropped */
+}
+
+.project-picture {
+  border: 1px solid var(--border);
+  object-fit: cover;
+  object-position: top;
+}
+
 .view-more-wrap { text-align: center; margin-top: var(--space-lg); }
 
 /* =========================================================
