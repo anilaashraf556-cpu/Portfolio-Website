@@ -4,6 +4,30 @@
 // on the current page — that's why we use "if (element)" checks.
 // =============================================================
 
+// ---- Dark mode toggle (present on every page) ----
+// Same idea as your To-Do app: we save the choice in localStorage
+// so it's remembered even after closing the browser.
+const themeToggle = document.getElementById("themeToggle");
+
+if (themeToggle) {
+  // On page load, check if dark mode was saved from a previous visit
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️"; // show a sun icon when already in dark mode
+  }
+
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+
+    // Save the choice for next time
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+
+    // Swap the icon: moon = "click to go dark", sun = "click to go light"
+    themeToggle.textContent = isDark ? "☀️" : "🌙";
+  });
+}
+
 // ---- Contact form validation (Contact page only) ----
 const contactForm = document.getElementById("contactForm");
 

@@ -1,30 +1,32 @@
 /* =========================================================
    DESIGN TOKENS
-   Two color families:
-   1) Light tokens  -> used for the page body, cards, text
-   2) Chrome tokens -> used ONLY for navbar, footer, and the
-      dark "code editor" hero card (deliberately dark for contrast)
+   The navbar/footer ALWAYS use the dark "chrome" colors below —
+   they don't change with light/dark mode, they're your brand bar.
+   Everything else (page background, cards, text) switches between
+   the light values here and the dark values in "body.dark-mode".
    ========================================================= */
 :root {
-  /* ---- Light theme (main page) ---- */
-  --bg: #bed4f7;          
-  --surface: #ffffff;     /* card background */
-  --surface-2: #eef2f8;   /* light gray hover / input background */
-  --border: #dee4ef;      /* light borders */
-  --text: #17213b;        /* dark navy text */
-  --text-muted: #5b6982;  /* muted gray-navy text */
-  --accent: #0f766e;      /* dark teal — readable on light backgrounds */
-  --accent-2: #b45309;    /* dark amber — readable on light backgrounds */
-  --danger: #dc2626;
-
-  /* ---- Chrome theme (navbar, footer, hero code card) ---- */
-  --chrome: #10182c;          /* dark navy background */
-  --chrome-2: #1c2540;        /* lighter navy — hover/active states */
+  /* ---- Chrome (navbar, footer, hero code card) — always dark ---- */
+  --chrome: #10182c;
+  --chrome-2: #1c2540;
   --chrome-border: #2a3654;
-  --chrome-text: #f8f8f8;         /* near-white text on dark chrome */
-  --chrome-text-muted: #94a2c4;   /* muted light text on dark chrome */
-  --chrome-accent: #2dd4bf;       /* bright teal — pops on dark chrome */
-  --chrome-accent-2: #fbbf24;     /* bright amber — pops on dark chrome */
+  --chrome-text: #edf1fa;
+  --chrome-text-muted: #94a2c4;
+  --chrome-accent: #2dd4bf;
+  --chrome-accent-2: #fbbf24;
+
+  /* ---- Light mode (default) ---- */
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-2: #eef2f8;
+  --border: #dee4ef;
+  --text: #17213b;
+  --text-muted: #5b6982;
+  --accent: #0f766e;
+  --accent-2: #b45309;
+  --link-color: #0f766e;
+  --danger: #dc2626;
+  --btn-text: #ffffff;
 
   --font-mono: 'JetBrains Mono', monospace;
   --font-body: 'Inter', sans-serif;
@@ -35,6 +37,21 @@
   --space-xl: 5rem;
 
   --radius: 10px;
+}
+
+/* ---- Dark mode overrides (applied when <body class="dark-mode">) ---- */
+body.dark-mode {
+  --bg: #0b1120;
+  --surface: #131b2e;
+  --surface-2: #1a2338;
+  --border: #2a3654;
+  --text: #e4e9f5;
+  --text-muted: #7c8aa5;
+  --accent: #5eead4;
+  --accent-2: #f0b429;
+  --link-color: #5eead4;
+  --danger: #ff6b6b;
+  --btn-text: #0b1120;
 }
 
 /* =========================================================
@@ -50,6 +67,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
@@ -60,7 +78,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* =========================================================
-   NAVBAR (dark chrome — sits on top of the light page)
+   NAVBAR (dark chrome — same in both light/dark mode)
    ========================================================= */
 .navbar {
   position: sticky;
@@ -80,6 +98,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-family: var(--font-mono);
   font-weight: 700;
   color: var(--chrome-accent);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .navbar-links {
@@ -107,30 +132,58 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background: var(--chrome-2);
 }
 
+/* ---- Dark mode toggle button ---- */
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--chrome-accent);
+  color: var(--chrome);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 2px 10px rgba(45, 212, 191, 0.4);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 14px rgba(45, 212, 191, 0.6);
+}
+
 /* =========================================================
-   BUTTONS
+   BUTTONS (all buttons share one consistent look + hover)
    ========================================================= */
 .btn {
   font-family: var(--font-mono);
   font-size: 0.9rem;
   padding: 0.7rem 1.4rem;
   border-radius: 6px;
-  border: 1px solid var(--border);
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  border: 1px solid var(--accent);
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
   display: inline-block;
   cursor: pointer;
-  background: transparent;
-  color: var(--text);
+  background: var(--accent);
+  color: var(--btn-text);
+  font-weight: 600;
 }
 
 .btn-primary {
+  /* Alias — same appearance as .btn, kept so existing HTML still works */
   background: var(--accent);
-  color: #ffffff;
+  color: var(--btn-text);
   border-color: var(--accent);
   font-weight: 600;
 }
 
-.btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+.btn:hover,
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.2);
+}
 
 /* =========================================================
    PAGE CONTAINER
@@ -201,7 +254,6 @@ main {
   font-size: 0.85rem;
   text-align: center;
   flex-shrink: 0;
-  box-shadow: 0 6px 20px rgba(16, 24, 44, 0.08);
 }
 
 .section-heading {
@@ -222,20 +274,16 @@ main {
 
 .project-card {
   background: var(--surface);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-md);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
-.project-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(16, 24, 44, 0.08);
-}
+.project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
 
 .project-picture-placeholder {
   width: 100%;
@@ -277,10 +325,11 @@ main {
 .project-link {
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: var(--accent);
+  color: var(--link-color);
   margin-top: auto;
+  transition: color 0.15s ease;
 }
-.project-link:hover { text-decoration: underline; }
+.project-link:hover { color: var(--accent); text-decoration: underline; }
 
 /* Real uploaded images override the dashed "placeholder" look */
 .profile-picture {
@@ -322,6 +371,12 @@ main {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--space-md);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.skill-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
 }
 
 .skill-card h3 {
@@ -425,9 +480,8 @@ main {
 }
 
 /* =========================================================
-   HERO "CODE EDITOR" CARD (signature element — stays dark
-   on purpose, like a real code editor window, even though
-   the rest of the page is light)
+   HERO "CODE EDITOR" CARD — stays dark on purpose, like a
+   real code editor window, in both light and dark mode
    ========================================================= */
 .editor-card {
   width: 100%;
@@ -477,7 +531,7 @@ main {
 .str { color: var(--chrome-accent-2); }
 
 /* =========================================================
-   FOOTER (dark chrome — matches navbar)
+   FOOTER (dark chrome — matches navbar, same in both modes)
    ========================================================= */
 .site-footer {
   background: var(--chrome);
