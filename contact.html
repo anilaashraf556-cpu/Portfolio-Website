@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Anila Ashraf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <span class="navbar-logo">Portfolio</span>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <h1 class="page-title">Let's Connect</h1>
+
+    <div class="contact-layout">
+      <div>
+        <div class="contact-intro">
+          <p>
+            Thank you for visiting my portfolio. If you have an internship opportunity,
+            project collaboration, or would like to know more about my work, feel free
+            to contact me.
+          </p>
+        </div>
+        <div class="contact-info-list">
+          <a href="mailto:anilaashraf556@gmail.com" class="contact-link">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">anilaashraf556@gmail.com</span>
+          </a>
+          <a href="http://github.com/anilaashraf556-cpu" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">github.com/anilaashraf556-cpu</span>
+          </a>
+          <a href="https://www.linkedin.com/in/anila-ashraf-aaa92037b" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">linkedin.com/in/anila-ashraf</span>
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-group">
+          <label for="nameInput">Name</label>
+          <input type="text" id="nameInput" name="name" placeholder="Your name">
+          <span class="form-error" id="nameError"></span>
+        </div>
+        <div class="form-group">
+          <label for="emailInput">Email</label>
+          <input type="email" id="emailInput" name="email" placeholder="you@example.com">
+          <span class="form-error" id="emailError"></span>
+        </div>
+        <div class="form-group">
+          <label for="messageInput">Message</label>
+          <textarea id="messageInput" name="message" rows="5" placeholder="Your message"></textarea>
+          <span class="form-error" id="messageError"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Msg</button>
+        <p class="form-status" id="formStatus"></p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="http://github.com/anilaashraf556-cpu" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/anila-ashraf-aaa92037b" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:anilaashraf556@gmail.com">Email</a>
+    </div>
+    <p class="footer-meta">&copy; 2026 Anila Ashraf — Building responsive interfaces.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

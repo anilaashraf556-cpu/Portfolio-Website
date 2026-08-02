@@ -1,48 +1,59 @@
 // =============================================================
-// This script does ONE job: keep the top tab bar in sync with
-// whichever section is currently visible on screen as you scroll.
+// This file is shared by all 4 pages (loaded via <script src="script.js">).
+// Each part below only runs if the matching element actually exists
+// on the current page — that's why we use "if (element)" checks.
 // =============================================================
 
-// Grab every tab button and every section on the page
-const tabs = document.querySelectorAll(".tab");
-const sections = document.querySelectorAll(".section, .hero");
+// ---- Contact form validation (Contact page only) ----
+const contactForm = document.getElementById("contactForm");
 
-// 1) Clicking a tab scrolls smoothly to its matching section
-tabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const targetId = tab.dataset.target; // e.g. "about", "skills"
-    const targetSection = document.getElementById(targetId);
-    targetSection.scrollIntoView({ behavior: "smooth" });
+if (contactForm) {
+  const nameInput = document.getElementById("nameInput");
+  const emailInput = document.getElementById("emailInput");
+  const messageInput = document.getElementById("messageInput");
+
+  const nameError = document.getElementById("nameError");
+  const emailError = document.getElementById("emailError");
+  const messageError = document.getElementById("messageError");
+  const formStatus = document.getElementById("formStatus");
+
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // stop the page from reloading on submit
+
+    // Reset old error messages before checking again
+    nameError.textContent = "";
+    emailError.textContent = "";
+    messageError.textContent = "";
+    formStatus.textContent = "";
+
+    let isValid = true;
+
+    // Name must not be empty
+    if (nameInput.value.trim() === "") {
+      nameError.textContent = "Please enter your name.";
+      isValid = false;
+    }
+
+    // Very simple email pattern check: something@something.something
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailInput.value.trim())) {
+      emailError.textContent = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    // Message must not be empty
+    if (messageInput.value.trim() === "") {
+      messageError.textContent = "Please write a short message.";
+      isValid = false;
+    }
+
+    if (isValid) {
+      // NOTE: This form does not actually send data anywhere yet —
+      // there's no backend connected. In a later step, we can connect
+      // it to a free service (like Formspree) so real messages arrive
+      // in your inbox. For now, this just confirms the form works.
+      formStatus.textContent = "Message looks good! (Not yet connected to email — coming in a later step.)";
+      contactForm.reset();
+    }
   });
-});
-
-// 2) As the user scrolls, detect which section is in view and
-//    highlight the matching tab automatically.
-// IntersectionObserver watches elements and tells us when they
-// enter or leave the visible part of the screen — we don't have
-// to manually calculate scroll positions ourselves.
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-
-        // Remove "active" from every tab first
-        tabs.forEach((tab) => tab.classList.remove("active"));
-
-        // Add "active" only to the tab matching the visible section
-        const matchingTab = document.querySelector(`.tab[data-target="${id}"]`);
-        if (matchingTab) {
-          matchingTab.classList.add("active");
-        }
-      }
-    });
-  },
-  {
-    // A section counts as "in view" once it's near the middle of the screen
-    rootMargin: "-40% 0px -50% 0px",
-  }
-);
-
-// Tell the observer to watch every section
-sections.forEach((section) => observer.observe(section));
+}
