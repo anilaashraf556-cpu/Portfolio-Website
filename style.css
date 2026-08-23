@@ -179,10 +179,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 600;
 }
 
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+}
+
 .btn:hover,
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(15, 118, 110, 0.2);
+}
+
+.btn-outline:hover {
+  transform: translateY(-2px);
+  background: var(--surface-2);
+  box-shadow: none;
 }
 
 /* =========================================================
@@ -261,6 +272,33 @@ main {
   font-size: 1.3rem;
   margin-bottom: var(--space-md);
   color: var(--accent);
+}
+
+/* =========================================================
+   NOW BUILDING / STATUS STRIP (home page)
+   ========================================================= */
+.status-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.5rem 1rem;
+  margin-bottom: var(--space-md);
+  width: fit-content;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--chrome-accent);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
+  flex-shrink: 0;
 }
 
 /* =========================================================
@@ -347,6 +385,37 @@ main {
 .view-more-wrap { text-align: center; margin-top: var(--space-lg); }
 
 /* =========================================================
+   CAPSTONE / FUTURE POSTS SECTION (home page)
+   ========================================================= */
+.capstone-section { margin-top: var(--space-xl); }
+
+.capstone-card {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.capstone-card p { max-width: 55ch; margin: 0 auto; }
+
+.badge-slot {
+  margin-top: var(--space-md);
+  display: flex;
+  justify-content: center;
+}
+
+.badge-placeholder {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+}
+
+/* =========================================================
    ABOUT PAGE
    ========================================================= */
 .about-layout {
@@ -405,6 +474,27 @@ main {
 }
 
 .contact-intro p { color: var(--text-muted); margin-bottom: var(--space-md); max-width: 50ch; }
+
+.booking-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.booking-card h2 {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.booking-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
 
 .contact-info-list { display: flex; flex-direction: column; gap: 0.75rem; }
 
