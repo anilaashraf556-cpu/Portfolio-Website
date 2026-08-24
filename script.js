@@ -71,13 +71,34 @@ if (contactForm) {
       isValid = false;
     }
 
-    if (isValid) {
-      // NOTE: This form does not actually send data anywhere yet —
-      // there's no backend connected. In a later step, we can connect
-      // it to a free service (like Formspree) so real messages arrive
-      // in your inbox. For now, this just confirms the form works.
-      formStatus.textContent = "Message looks good! (Not yet connected to email — coming in a later step.)";
-      contactForm.reset();
-    }
+    if (!isValid) return;
+
+    // Validation passed — actually send the data to Formspree.
+    // We use fetch() instead of a normal form submit so the visitor
+    // stays on this page and just sees a status message, instead of
+    // being redirected to a Formspree confirmation page.
+    const submitBtn = contactForm.querySelector("button[type='submit']");
+    submitBtn.disabled = true;
+    formStatus.textContent = "Sending...";
+
+    fetch(contactForm.action, {
+      method: "POST",
+      body: new FormData(contactForm),
+      headers: { "Accept": "application/json" }
+    })
+      .then((response) => {
+        if (response.ok) {
+          formStatus.textContent = "Thanks! Your message has been sent — I'll get back to you soon.";
+          contactForm.reset();
+        } else {
+          formStatus.textContent = "Something went wrong. Please try again or email me directly.";
+        }
+      })
+      .catch(() => {
+        formStatus.textContent = "Something went wrong. Please try again or email me directly.";
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+      });
   });
 }
