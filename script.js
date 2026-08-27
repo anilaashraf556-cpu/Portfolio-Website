@@ -1,34 +1,31 @@
 // =============================================================
-// This file is shared by all 4 pages (loaded via <script src="script.js">).
-// Each part below only runs if the matching element actually exists
-// on the current page — that's why we use "if (element)" checks.
+// Shared JavaScript for all 4 pages
 // =============================================================
 
 // ---- Dark mode toggle (present on every page) ----
-// Same idea as your To-Do app: we save the choice in localStorage
-// so it's remembered even after closing the browser.
+
 const themeToggle = document.getElementById("themeToggle");
 
 if (themeToggle) {
-  // On page load, check if dark mode was saved from a previous visit
+  // Check if dark mode was saved from a previous visit
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
-    themeToggle.textContent = "☀️"; // show a sun icon when already in dark mode
+    themeToggle.textContent = "☀️";
   }
 
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
+
     const isDark = document.body.classList.contains("dark-mode");
 
-    // Save the choice for next time
     localStorage.setItem("theme", isDark ? "dark" : "light");
 
-    // Swap the icon: moon = "click to go dark", sun = "click to go light"
     themeToggle.textContent = isDark ? "☀️" : "🌙";
   });
 }
 
 // ---- Contact form validation (Contact page only) ----
+
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
@@ -39,63 +36,79 @@ if (contactForm) {
   const nameError = document.getElementById("nameError");
   const emailError = document.getElementById("emailError");
   const messageError = document.getElementById("messageError");
+
   const formStatus = document.getElementById("formStatus");
 
-  contactForm.addEventListener("submit", (event) => {
-    event.preventDefault(); // stop the page from reloading on submit
-
-    // Reset old error messages before checking again
+  // Validate the contact form
+  function validateContactForm() {
+    // Clear old error messages
     nameError.textContent = "";
     emailError.textContent = "";
     messageError.textContent = "";
-    formStatus.textContent = "";
 
     let isValid = true;
 
-    // Name must not be empty
+    // Name validation
     if (nameInput.value.trim() === "") {
       nameError.textContent = "Please enter your name.";
       isValid = false;
     }
 
-    // Very simple email pattern check: something@something.something
+    // Email validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!emailPattern.test(emailInput.value.trim())) {
       emailError.textContent = "Please enter a valid email address.";
       isValid = false;
     }
 
-    // Message must not be empty
+    // Message validation
     if (messageInput.value.trim() === "") {
       messageError.textContent = "Please write a short message.";
       isValid = false;
     }
 
-    if (!isValid) return;
+    return isValid;
+  }
 
-    // Validation passed — actually send the data to Formspree.
-    // We use fetch() instead of a normal form submit so the visitor
-    // stays on this page and just sees a status message, instead of
-    // being redirected to a Formspree confirmation page.
+  // Handle form submission
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    formStatus.textContent = "";
+
+    // Stop if validation fails
+    if (!validateContactForm()) {
+      return;
+    }
+
+    // Validation passed — send the form to Formspree
     const submitBtn = contactForm.querySelector("button[type='submit']");
+
     submitBtn.disabled = true;
     formStatus.textContent = "Sending...";
 
     fetch(contactForm.action, {
       method: "POST",
       body: new FormData(contactForm),
-      headers: { "Accept": "application/json" }
+      headers: {
+        Accept: "application/json",
+      },
     })
       .then((response) => {
         if (response.ok) {
-          formStatus.textContent = "Thanks! Your message has been sent — I'll get back to you soon.";
+          formStatus.textContent =
+            "Thanks! Your message has been sent — I'll get back to you soon.";
+
           contactForm.reset();
         } else {
-          formStatus.textContent = "Something went wrong. Please try again or email me directly.";
+          formStatus.textContent =
+            "Something went wrong. Please try again or email me directly.";
         }
       })
       .catch(() => {
-        formStatus.textContent = "Something went wrong. Please try again or email me directly.";
+        formStatus.textContent =
+          "Something went wrong. Please try again or email me directly.";
       })
       .finally(() => {
         submitBtn.disabled = false;
