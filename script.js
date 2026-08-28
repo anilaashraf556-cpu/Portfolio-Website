@@ -19,7 +19,6 @@ if (themeToggle) {
     const isDark = document.body.classList.contains("dark-mode");
 
     localStorage.setItem("theme", isDark ? "dark" : "light");
-
     themeToggle.textContent = isDark ? "☀️" : "🌙";
   });
 }
@@ -48,13 +47,28 @@ if (contactForm) {
 
     let isValid = true;
 
+    // -------------------------
     // Name validation
-    if (nameInput.value.trim() === "") {
+    // -------------------------
+
+    const nameValue = nameInput.value.trim();
+
+    // Allows letters, spaces, apostrophes, and hyphens
+    const namePattern = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/;
+
+    if (nameValue === "") {
       nameError.textContent = "Please enter your name.";
+      isValid = false;
+    } else if (!namePattern.test(nameValue)) {
+      nameError.textContent =
+        "Name can only contain letters, spaces, apostrophes, and hyphens.";
       isValid = false;
     }
 
+    // -------------------------
     // Email validation
+    // -------------------------
+
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailPattern.test(emailInput.value.trim())) {
@@ -62,7 +76,10 @@ if (contactForm) {
       isValid = false;
     }
 
+    // -------------------------
     // Message validation
+    // -------------------------
+
     if (messageInput.value.trim() === "") {
       messageError.textContent = "Please write a short message.";
       isValid = false;
@@ -71,7 +88,8 @@ if (contactForm) {
     return isValid;
   }
 
-  // Handle form submission
+  // ---- Handle form submission ----
+
   contactForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -83,7 +101,9 @@ if (contactForm) {
     }
 
     // Validation passed — send the form to Formspree
-    const submitBtn = contactForm.querySelector("button[type='submit']");
+    const submitBtn = contactForm.querySelector(
+      "button[type='submit']"
+    );
 
     submitBtn.disabled = true;
     formStatus.textContent = "Sending...";
