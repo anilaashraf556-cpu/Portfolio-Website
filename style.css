@@ -217,11 +217,61 @@ main {
    HOME PAGE
    ========================================================= */
 .home-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   gap: var(--space-lg);
   flex-wrap: wrap;
   margin-bottom: var(--space-xl);
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+  opacity: 0.35;
+  /* Normal blending in light mode — this is what made it look good
+     originally. "screen" blend mode only helps on dark backgrounds; on
+     a light background it pushes colors toward white and disappears. */
+  mix-blend-mode: normal;
+}
+
+/* Dark mode: the shader's own colors are dark navy/teal, so against an
+   already-dark page they read as flat and washed out at the same opacity
+   and blend mode used in light mode. "screen" makes the bright rings pop
+   here — but only here, since it breaks visibility on a light background. */
+body.dark-mode .hero-canvas {
+  opacity: 0.75;
+  mix-blend-mode: screen;
+}
+
+/* Theme-aware overlay: keeps the shader subtle enough that the existing
+   text colors (var(--text), var(--text-muted), etc.) stay readable as-is,
+   in both light and dark mode, without needing to recolor anything */
+.home-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--bg) 95%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 80%, transparent) 35%,
+    color-mix(in srgb, var(--bg) 30%, transparent) 65%,
+    transparent 85%
+  );
+}
+
+.home-hero > .home-hero-text,
+.home-hero > .profile-picture {
+  position: relative;
+  z-index: 2;
 }
 
 .home-hero-text { flex: 1; min-width: 260px; }
